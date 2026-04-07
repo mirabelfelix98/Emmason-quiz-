@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Find Your Perfect Design Solution — Emmason Designs</title>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2438635346556151');
+fbq('track', 'PageView');
+fbq('track', 'ViewContent');
+</script>
+<!-- End Meta Pixel Code -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E2C47A;
+    --gold-pale: #F5E9CC;
+    --cream: #FAF5EC;
+    --dark: #0E0C09;
+    --dark2: #181410;
+    --dark3: #241E15;
+    --dark4: #2E2719;
+    --text: #F0E8D8;
+    --text-muted: #9C8E75;
+    --card-bg: rgba(255,255,255,0.04);
+    --card-border: rgba(201,168,76,0.18);
+  }
+ 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    position: relative;
+  }
+ 
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.10) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 40% at 80% 80%, rgba(201,168,76,0.06) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+ 
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 0;
+  }
+ 
+  .quiz-wrapper {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 680px;
+    padding: 24px 20px 48px;
+  }
+ 
+  .logo {
+    text-align: center;
+    margin-bottom: 36px;
+    animation: fadeDown 0.6s ease both;
+  }
+  .logo-wordmark {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .logo-sub {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+ 
+  .progress-track {
+    height: 2px;
+    background: rgba(201,168,76,0.15);
+    border-radius: 2px;
+    margin-bottom: 40px;
+    overflow: hidden;
+    animation: fadeIn 0.6s 0.2s ease both;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 2px;
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 0 8px rgba(201,168,76,0.5);
+  }
+ 
+  .step-label {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 28px;
+    animation: fadeIn 0.6s 0.3s ease both;
+  }
+  .step-label span { color: var(--gold); }
+ 
+  .screen {
+    display: none;
+    animation: slideUp 0.45s cubic-bezier(0.4,0,0.2,1) both;
+  }
+  .screen.active { display: block; }
+ 
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+ 
+  .question-text {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(22px, 5vw, 34px);
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--text);
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .question-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 36px;
+    letter-spacing: 0.02em;
+  }
+ 
+  .options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .options.single-col { grid-template-columns: 1fr; }
+ 
+  .option {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 18px 16px;
+    cursor: pointer;
+    transition: all 0.22s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .option::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.06), transparent);
+    opacity: 0;
+    transition: opacity 0.22s ease;
+  }
+  .option:hover::before { opacity: 1; }
+  .option:hover {
+    border-color: rgba(201,168,76,0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3), 0 0 0 1px rgba(201,168,76,0.1);
+  }
+  .option.selected {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.08);
+    box-shadow: 0 0 0 1px rgba(201,168,76,0.3), 0 8px 24px rgba(0,0,0,0.3);
+  }
+  .option.selected::before { opacity: 1; }
+ 
+  .option-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    line-height: 1;
+  }
+  .option-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 3px;
+  }
+  .option-desc {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    line-height: 1.4;
+    font-weight: 400;
+  }
+  .option-check {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.22s ease;
+    font-size: 10px;
+  }
+  .option.selected .option-check {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--dark);
+  }
+ 
+  .nav-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+ 
+  .btn {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    padding: 14px 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.22s ease;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold), #B8941F);
+    color: var(--dark);
+    box-shadow: 0 4px 20px rgba(201,168,76,0.3);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(201,168,76,0.45);
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  }
+  .btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .btn-ghost:hover {
+    color: var(--text);
+    border-color: rgba(255,255,255,0.2);
+  }
+ 
+  .intro-badge {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+  .intro-headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 7vw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+    margin-bottom: 16px;
+    color: var(--text);
+  }
+  .intro-headline em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .intro-sub {
+    font-size: 15px;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.6;
+    max-width: 440px;
+    margin: 0 auto 36px;
+  }
+  .intro-trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .trust-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+ 
+  .result-glow {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .result-tag {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .result-headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(24px, 6vw, 42px);
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .result-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.65;
+    max-width: 480px;
+    margin: 0 auto 32px;
+  }
+ 
+  .result-services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 36px;
+  }
+  .service-tag {
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.25);
+    color: var(--gold-light);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 6px 14px;
+    border-radius: 100px;
+  }
+ 
+  .btn-cta {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.04em;
+    padding: 18px 48px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    background: linear-gradient(135deg, var(--gold), #B8941F);
+    color: var(--dark);
+    box-shadow: 0 6px 30px rgba(201,168,76,0.4);
+    transition: all 0.25s ease;
+    display: inline-block;
+    text-decoration: none;
+  }
+  .btn-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(201,168,76,0.55);
+  }
+  .cta-note {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 14px;
+    letter-spacing: 0.02em;
+  }
+ 
+  .divider-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 28px auto;
+  }
+ 
+  .corner-decor {
+    position: fixed;
+    width: 80px;
+    height: 80px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.25;
+  }
+  .corner-decor.tl { top: 20px; left: 20px; border-top: 1px solid var(--gold); border-left: 1px solid var(--gold); }
+  .corner-decor.br { bottom: 20px; right: 20px; border-bottom: 1px solid var(--gold); border-right: 1px solid var(--gold); }
+ 
+  .wa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(37,211,102,0.1);
+    border: 1px solid rgba(37,211,102,0.3);
+    color: #5DE08A;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.22s ease;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  .wa-btn:hover { background: rgba(37,211,102,0.18); }
+ 
+  @media (max-width: 480px) {
+    .options { grid-template-columns: 1fr; }
+    .option { padding: 14px 14px; }
+    .intro-trust { gap: 12px; }
+  }
+</style>
+</head>
+<body>
+<!-- Meta Pixel Code (noscript) -->
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2438635346556151&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code (noscript) -->
+ 
+<div class="corner-decor tl"></div>
+<div class="corner-decor br"></div>
+ 
+<div class="quiz-wrapper">
+ 
+  <div class="logo">
+    <div class="logo-wordmark">Emmason Designs</div>
+    <div class="logo-sub">Creative Studio · Lagos</div>
+  </div>
+ 
+  <div class="progress-track" id="progressTrack" style="display:none">
+    <div class="progress-fill" id="progressFill" style="width:0%"></div>
+  </div>
+ 
+  <div class="step-label" id="stepLabel" style="display:none">
+    Question <span id="stepCurrent">1</span> of <span id="stepTotal">4</span>
+  </div>
+ 
+  <!-- INTRO -->
+  <div class="screen active" id="screen-intro">
+    <div style="text-align:center; margin-bottom:20px;">
+      <span class="intro-badge">✦ Free Brand Audit Quiz</span>
+    </div>
+    <h1 class="intro-headline">
+      What does your<br/><em>business really need?</em>
+    </h1>
+    <p class="intro-sub">
+      Answer 4 quick questions and we'll show you the exact design service that can take your brand to the next level — tailored just for you.
+    </p>
+    <div style="text-align:center">
+      <button class="btn btn-primary" onclick="if(typeof fbq === 'function') fbq('trackCustom', 'StartQuiz'); startQuiz();" style="font-size:15px; padding:16px 40px;">
+        Start the Quiz →
+      </button>
+    </div>
+    <div class="intro-trust">
+      <div class="trust-item"><div class="trust-dot"></div> Takes under 60 seconds</div>
+      <div class="trust-item"><div class="trust-dot"></div> 100% free</div>
+      <div class="trust-item"><div class="trust-dot"></div> No commitment needed</div>
+    </div>
+  </div>
+ 
+  <!-- Q1 -->
+  <div class="screen" id="screen-q1">
+    <h2 class="question-text">Which best describes your business right now?</h2>
+    <p class="question-hint">Pick the option that fits most</p>
+    <div class="options" id="opts-q1">
+      <div class="option" onclick="selectOption('q1', 'new', this)">
+        <div class="option-icon">🌱</div>
+        <div>
+          <div class="option-label">Brand New Business</div>
+          <div class="option-desc">Just starting out, building from scratch</div>
+        </div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selectOption('q1', 'existing', this)">
+        <div class="option-icon">🏢</div>
+        <div>
+          <div class="option-label">Existing Business</div>
+          <div class="option-desc">Already running but need a boost</div>
+        </div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selectOption('q1', 'rebrand', this)">
+        <div class="option-icon">🔄</div>
+        <div>
+          <div class="option-label">Ready to Rebrand</div>
+          <div class="option-desc">Time to level up the look and feel</div>
+        </div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selectOption('q1', 'freelancer', this)">
+        <div class="option-icon">💼</div>
+        <div>
+          <div class="option-label">Freelancer / Creator</div>
+          <div class="option-desc">Personal brand or solo hustle</div>
+        </div>
+        <div class="option-check">✓</div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-primary" id="btn-q1" onclick="nextStep(2)" disabled>Continue →</button>
+    </div>
+  </div>
+ 
+  <!-- Q2 -->
+  <div class="screen" id="screen-q2">
+    <h2 class="question-text">What's your biggest challenge right now?</h2>
+    <p class="question-hint">Be honest — this helps us give you the right recommendation</p>
+    <div class="options" id="opts-q2">
+      <div class="option" onclick="selectOption('q2', 'no_online', this)">
+        <div class="option-icon">🌐</div>
+        <div>
+          <div class="option-label">No Online Presence</div>
+          <div class="option-desc">Customers can't find me online</div>
+        </div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selectOption('q2', 'low_leads', this)">
+        <div class="option-icon">📉</div>
+        <div>
+          <div class="option-label">Low Sales & Leads</div>
+          <div class="option-desc">Traffic exists but people don't convert</div>
+        </div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selectOption('q2', 'weak_brand', this)">
+        <div class="option-icon">🎨</div>
+        <div>
+          <div class="option-label">Weak Brand Identity</div>
+          <div class="option-desc">My visuals don't look professional</div>
+        </div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selectOption('q2', 'no_content', this)">
+        <div class="option-icon">📲</div>
+        <div>
+          <div class="option-label">No Social Content</div>
+          <div class="option-desc">Struggling to stay consistent online</div>
+        </div>
+        <div class="option-check">✓</div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="prevStep(1)">← Back</button>
+      <button class="btn btn-primary" id="btn-q2" onclick="nextStep(3)" disabled>Continue →</button>
+    </div>
+  </div>
+ 
+  <!-- Q3 -->
+  <div class="screen" id="screen-q3">
+    <h2 class="question-text">Which service sounds like what you need?</h2>
+    <p class="question-hint">Pick what resonates most with you</p>
+    <div class="options single-col" id="opts-q3">
+      <div class="option" onclick="selectOption('q3', 'web', this)">
+        <div class="option-icon">🖥️</div>
+        <div>
+          <div class="option-label">Website / Landing Page Design</div>
+          <div class="option-desc">A stunning page that converts visitors into paying customers</div>
+        </div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selectOption('q3', 'logo', this)">
+        <div class="option-icon">✦</div>
+        <div>
+          <div class="option-label">Logo & Brand Identity</div>
+          <div class="option-desc">A professional logo, color palette, and brand that stands out</div>
+        </div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selectOption('q3', 'social', this)">
+        <div class="option-icon">📸</div>
+        <div>
+          <div class="option-label">Social Media Graphics</div>
+          <div class="option-desc">Eye-catching posts, banners, and stories for Instagram & Facebook</div>
+        </div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selectOption('q3', 'ads', this)">
+        <div class="option-icon">🎯</div>
+        <div>
+          <div class="option-label">Meta Ads Management</div>
+          <div class="option-desc">Facebook & Instagram ads that bring real customers to your door</div>
+        </div>
+        <div class="option-check">✓</div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="prevStep(2)">← Back</button>
+      <button class="btn btn-primary" id="btn-q3" onclick="nextStep(4)" disabled>Continue →</button>
+    </div>
+  </div>
+ 
+  <!-- Q4 -->
+  <div class="screen" id="screen-q4">
+    <h2 class="question-text">When do you want to get started?</h2>
+    <p class="question-hint">We'll tailor the recommendation to your timeline</p>
+    <div class="options single-col" id="opts-q4">
+      <div class="option" onclick="selectOption('q4', 'asap', this)">
+        <div class="option-icon">⚡</div>
+        <div>
+          <div class="option-label">As Soon As Possible</div>
+          <div class="option-desc">I need this done quickly — ready to move now</div>
+        </div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selectOption('q4', 'month', this)">
+        <div class="option-icon">📅</div>
+        <div>
+          <div class="option-label">Within the Next Month</div>
+          <div class="option-desc">Planning ahead, have some time to decide</div>
+        </div>
+        <div class="option-check">✓</div>
+      </div>
+      <div class="option" onclick="selectOption('q4', 'exploring', this)">
+        <div class="option-icon">🔍</div>
+        <div>
+          <div class="option-label">Just Exploring for Now</div>
+          <div class="option-desc">Getting ideas and comparing options</div>
+        </div>
+        <div class="option-check">✓</div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="prevStep(3)">← Back</button>
+      <button class="btn btn-primary" id="btn-q4" onclick="showResult()" disabled>See My Results →</button>
+    </div>
+  </div>
+ 
+  <!-- RESULT -->
+  <div class="screen" id="screen-result" style="position:relative; text-align:center;">
+    <div class="result-glow"></div>
+    <div class="result-tag">✦ Your Personalised Recommendation</div>
+    <h2 class="result-headline" id="result-headline">Your Brand Deserves Better</h2>
+    <div class="divider-line"></div>
+    <p class="result-sub" id="result-sub">Based on your answers, here's exactly what we recommend for you.</p>
+ 
+    <div class="result-services" id="result-services"></div>
+ 
+    <div style="margin-bottom:16px;">
+      <a href="https://emmason-designs.netlify.app" target="_blank" class="btn-cta" onclick="if(typeof fbq === 'function') fbq('trackCustom', 'ClickGetStarted');">
+        View Our Portfolio & Get Started →
+      </a>
+      <p class="cta-note">See our work · No commitment required</p>
+    </div>
+ 
+    <div style="margin-top: 36px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06);">
+      <p style="font-size:12px; color: var(--text-muted); margin-bottom:16px;">Or reach us directly on WhatsApp</p>
+      <a href="https://wa.link/qjvoko" target="_blank" class="wa-btn" onclick="if(typeof fbq === 'function') fbq('track', 'Contact');">
+        <span style="font-size:16px;">💬</span> Chat on WhatsApp
+      </a>
+    </div>
+ 
+    <div style="margin-top:28px;">
+      <button onclick="resetQuiz()" style="background:none; border:none; color:var(--text-muted); font-size:12px; font-family:'Plus Jakarta Sans',sans-serif; cursor:pointer; text-decoration:underline; letter-spacing:0.04em;">
+        Retake the quiz
+      </button>
+    </div>
+  </div>
+ 
+</div>
+ 
+<script>
+  const answers = {};
+  const TOTAL = 4;
+ 
+  const resultData = {
+    web: {
+      headline: "You Need a High-Converting Landing Page",
+      sub: "Based on your answers, a professional website or landing page is the #1 thing that will grow your business. We design pages built to turn visitors into customers — fast.",
+      tags: ["Landing Page Design", "Website Design", "Mobile Optimised", "Conversion Focused"]
+    },
+    logo: {
+      headline: "Your Brand Identity Needs a Glow-Up",
+      sub: "A strong logo and brand identity builds instant trust. We'll craft a visual identity that makes you look premium, professional, and unforgettable to your target market.",
+      tags: ["Logo Design", "Brand Identity", "Color System", "Typography"]
+    },
+    social: {
+      headline: "It's Time to Dominate Social Media",
+      sub: "Consistent, scroll-stopping content is what separates brands that grow from brands that disappear. We create social graphics that demand attention and drive engagement.",
+      tags: ["Social Media Graphics", "Content Design", "Instagram Assets", "Facebook Creatives"]
+    },
+    ads: {
+      headline: "Let's Run Ads That Actually Convert",
+      sub: "Stop wasting ad budget. We manage your Meta Ads end-to-end — strategy, creative, targeting, and optimization — so every naira works harder for your business.",
+      tags: ["Meta Ads Management", "Facebook Ads", "Instagram Ads", "Ad Creatives"]
+    }
+  };
+ 
+  const challengeMap = {
+    no_online: 'web',
+    low_leads: 'ads',
+    weak_brand: 'logo',
+    no_content: 'social'
+  };
+ 
+  function startQuiz() {
+    document.getElementById('progressTrack').style.display = 'block';
+    document.getElementById('stepLabel').style.display = 'block';
+    document.getElementById('stepTotal').textContent = TOTAL;
+    goToScreen('q1');
+    updateProgress(1);
+  }
+ 
+  function selectOption(qKey, value, el) {
+    el.closest('.options').querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    answers[qKey] = value;
+    document.getElementById('btn-' + qKey).disabled = false;
+  }
+ 
+  function nextStep(step) {
+    goToScreen('q' + step);
+    updateProgress(step);
+  }
+ 
+  function prevStep(step) {
+    goToScreen('q' + step);
+    updateProgress(step);
+  }
+ 
+  function updateProgress(step) {
+    document.getElementById('progressFill').style.width = (((step - 1) / TOTAL) * 100) + '%';
+    document.getElementById('stepCurrent').textContent = step;
+  }
+ 
+  function goToScreen(name) {
+    document.querySelectorAll('.screen').forEach(s => {
+      s.classList.remove('active');
+      s.style.display = 'none';
+    });
+    const target = document.getElementById('screen-' + name);
+    target.style.display = 'block';
+    target.style.animation = 'none';
+    target.offsetHeight;
+    target.style.animation = '';
+    target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+ 
+  function showResult() {
+    let key = answers['q3'] || challengeMap[answers['q2']] || 'web';
+    const data = resultData[key] || resultData['web'];
+ 
+    document.getElementById('result-headline').textContent = data.headline;
+    document.getElementById('result-sub').textContent = data.sub;
+    document.getElementById('result-services').innerHTML = data.tags.map(t => `<span class="service-tag">${t}</span>`).join('');
+ 
+    document.getElementById('progressFill').style.width = '100%';
+    document.getElementById('stepLabel').style.display = 'none';
+ 
+    if (typeof fbq === 'function') {
+      fbq('track', 'Lead');
+    }
+ 
+    goToScreen('result');
+  }
+ 
+  function resetQuiz() {
+    Object.keys(answers).forEach(k => delete answers[k]);
+    document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    ['q1','q2','q3','q4'].forEach(q => {
+      const b = document.getElementById('btn-' + q);
+      if (b) b.disabled = true;
+    });
+    document.getElementById('progressTrack').style.display = 'none';
+    document.getElementById('stepLabel').style.display = 'none';
+    document.getElementById('progressFill').style.width = '0%';
+    goToScreen('intro');
+  }
+</script>
+</body>
+</html>
